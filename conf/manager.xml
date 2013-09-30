@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manager>
+	<server-ip>127.0.0.1</server-ip>
+	<server-port>2500</server-port>
+	<bdb-cache-percent>50</bdb-cache-percent>
+	<state-db-path>./data/server/state</state-db-path>
+	<fetch-url-limit>300</fetch-url-limit>
+	<url-retries>30</url-retries>
+	<reload-url-interval>300000</reload-url-interval> <!--定期去加载节点的间隔时间,以毫秒为单位,暂时设为10分钟(600000)-->
+	<seed-reuse-interval>86400000</seed-reuse-interval> <!--种子节点的间隔时间,以毫秒为单位,暂时设为1天(86400000)-->
+	<general-reuse-interval>604800000</general-reuse-interval> <!--普通节点的间隔时间,以毫秒为单位,暂时设为7天(604800000)-->
+	<reassign-interval>180000</reassign-interval> <!--url必须距离上一次分配一定的时间后才可以再次被分配,暂时设为1小时(3600000)-->
+	 
+</manager>

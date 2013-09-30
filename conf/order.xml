@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?><crawl-order xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="heritrix_settings.xsd">
+  <meta>
+    <name>pris</name>
+    <description>Default Profile</description>
+    <operator>Admin</operator>
+    <organization/>
+    <audience/>
+    <date>20101130063422</date>
+  </meta>
+  <controller>
+    <string name="settings-directory">settings</string>
+    <string name="disk-path">../data/job/</string>
+    <string name="logs-path">logs</string>
+    <string name="checkpoints-path">checkpoints</string>
+    <string name="state-path">state</string>
+    <string name="scratch-path">scratch</string>
+    <long name="max-bytes-download">0</long>
+    <long name="max-document-download">0</long>
+    <long name="max-time-sec">0</long>
+    <integer name="max-toe-threads">5</integer>
+    <integer name="recorder-out-buffer-bytes">4096</integer>
+    <integer name="recorder-in-buffer-bytes">65536</integer>
+    <integer name="bdb-cache-percent">0</integer>
+    <newObject name="scope" class="org.archive.crawler.deciderules.DricDecidingScope">
+      <boolean name="enabled">true</boolean>
+      <string name="seedsfile">seeds.txt</string>
+      <boolean name="reread-seeds-on-config">false</boolean>
+      <newObject name="decide-rules" class="org.archive.crawler.deciderules.DecideRuleSequence">
+        <map name="rules">
+          <newObject name="defaultAccept" class="org.archive.crawler.deciderules.AcceptDecideRule">
+          </newObject>
+        </map>
+      </newObject>
+    </newObject>
+    <map name="http-headers">
+      <string name="user-agent">Mozilla/5.0 (compatible; YodaoBot/1.0 +http://www.yodao.com/help/webmaster/spider/)</string>
+      <string name="from">reader@188.com</string>
+    </map>
+    <newObject name="robots-honoring-policy" class="org.archive.crawler.datamodel.RobotsHonoringPolicy">
+      <string name="type">classic</string>
+      <boolean name="masquerade">false</boolean>
+      <text name="custom-robots"/>
+      <stringList name="user-agents">
+      </stringList>
+    </newObject>
+    <newObject name="frontier" class="org.archive.crawler.frontier.PrisFrontier">
+      <float name="delay-factor">3.0</float>
+      <integer name="max-delay-ms">5000</integer>
+      <integer name="min-delay-ms">1000</integer>
+      <integer name="respect-crawl-delay-up-to-secs">0</integer>
+      <integer name="max-retries">2</integer>
+      <long name="retry-delay-seconds">60</long>
+      <integer name="preference-embed-hops">1</integer>
+      <integer name="total-bandwidth-usage-KB-sec">0</integer>
+      <integer name="max-per-host-bandwidth-usage-KB-sec">0</integer>
+      <string name="queue-assignment-policy">org.archive.crawler.frontier.BucketQueueAssignmentPolicy</string>
+      <string name="force-queue-assignment"/>
+      <boolean name="pause-at-start">false</boolean>
+      <boolean name="pause-at-finish">true</boolean>
+      <boolean name="source-tag-seeds">false</boolean>
+      <boolean name="recovery-log-enabled">false</boolean>
+      <boolean name="hold-queues">true</boolean>
+      <integer name="balance-replenish-amount">3000</integer>
+      <integer name="error-penalty-amount">100</integer>
+      <long name="queue-total-budget">-1</long>
+      <string name="cost-policy">org.archive.crawler.frontier.ZeroCostAssignmentPolicy</string>
+      <long name="snooze-deactivate-ms">30000</long>
+      <integer name="target-ready-backlog">50</integer>
+      <string name="uri-included-structure">org.archive.crawler.util.BloomUriUniqFilter</string>
+      <boolean name="dump-pending-at-close">false</boolean>
+    </newObject>
+    <map name="uri-canonicalization-rules">
+      <newObject name="Lowercase" class="org.archive.crawler.url.canonicalize.LowercaseRule">
+        <boolean name="enabled">true</boolean>
+      </newObject>
+      <newObject name="Userinfo" class="org.archive.crawler.url.canonicalize.StripUserinfoRule">
+        <boolean name="enabled">true</boolean>
+      </newObject>
+      <newObject name="WWW[0-9]*" class="org.archive.crawler.url.canonicalize.StripWWWNRule">
+        <boolean name="enabled">true</boolean>
+      </newObject>
+      <newObject name="SessionIDs" class="org.archive.crawler.url.canonicalize.StripSessionIDs">
+        <boolean name="enabled">true</boolean>
+      </newObject>
+      <newObject name="SessionCFIDs" class="org.archive.crawler.url.canonicalize.StripSessionCFIDs">
+        <boolean name="enabled">true</boolean>
+      </newObject>
+      <newObject name="QueryStrPrefix" class="org.archive.crawler.url.canonicalize.FixupQueryStr">
+        <boolean name="enabled">true</boolean>
+      </newObject>
+    </map>
+    <map name="pre-fetch-processors">
+      <newObject name="Preselector" class="org.archive.crawler.prefetch.Preselector">
+        <boolean name="enabled">true</boolean>
+        <newObject name="Preselector#decide-rules" class="org.archive.crawler.deciderules.DecideRuleSequence">
+          <map name="rules">
+          </map>
+        </newObject>
+        <boolean name="override-logger">false</boolean>
+        <boolean name="recheck-scope">true</boolean>
+        <boolean name="block-all">false</boolean>
+        <string name="block-by-regexp"/>
+        <string name="allow-by-regexp"/>
+      </newObject>
+      <newObject name="NoRobotsPreprocessor" class="org.archive.crawler.prefetch.NoRobotsPreconditionEnforcer">
+        <boolean name="enabled">true</boolean>
+        <newObject name="NoRobotsPreprocessor#decide-rules" class="org.archive.crawler.deciderules.DecideRuleSequence">
+          <map name="rules">
+          </map>
+        </newObject>
+        <integer name="ip-validity-duration-seconds">21600</integer>
+      </newObject>
+    </map>
+    <map name="fetch-processors">
+      <newObject name="DNS" class="org.archive.crawler.fetcher.FetchDNS">
+        <boolean name="enabled">true</boolean>
+        <newObject name="DNS#decide-rules" class="org.archive.crawler.deciderules.DecideRuleSequence">
+          <map name="rules">
+          </map>
+        </newObject>
+        <boolean name="accept-non-dns-resolves">false</boolean>
+        <boolean name="digest-content">true</boolean>
+        <string name="digest-algorithm">sha1</string>
+      </newObject>
+      <newObject name="OptimizeHTTP" class="org.archive.crawler.fetcher.OptimizeFetchHTTP">
+        <boolean name="enabled">true</boolean>
+        <newObject name="OptimizeHTTP#decide-rules" class="org.archive.crawler.deciderules.DecideRuleSequence">
+          <map name="rules">
+          </map>
+        </newObject>
+        <newObject name="midfetch-decide-rules" class="org.archive.crawler.deciderules.DecideRuleSequence">
+          <map name="rules">
+          </map>
+        </newObject>
+        <integer name="timeout-seconds">120</integer>
+        <integer name="sotimeout-ms">20000</integer>
+        <integer name="fetch-bandwidth">0</integer>
+        <long name="max-length-bytes">0</long>
+        <boolean name="ignore-cookies">false</boolean>
+        <boolean name="use-bdb-for-cookies">true</boolean>
+        <string name="load-cookies-from-file"/>
+        <string name="save-cookies-to-file"/>
+        <string name="trust-level">open</string>
+        <stringList name="accept-headers">
+        </stringList>
+        <string name="http-proxy-host"/>
+        <string name="http-proxy-port"/>
+        <string name="default-encoding">ISO-8859-1</string>
+        <boolean name="digest-content">true</boolean>
+        <string name="digest-algorithm">sha1</string>
+        <boolean name="send-if-modified-since">true</boolean>
+        <boolean name="send-if-none-match">true</boolean>
+        <boolean name="send-connection-close">true</boolean>
+        <boolean name="send-referer">true</boolean>
+        <boolean name="send-range">false</boolean>
+        <string name="http-bind-address"/>
+      </newObject>
+    </map>
+    <map name="extract-processors">
+      <newObject name="ParseHTTP" class="org.archive.crawler.parse.ParseHTTP">
+        <boolean name="enabled">true</boolean>
+        <newObject name="ParseHTTP#decide-rules" class="org.archive.crawler.deciderules.DecideRuleSequence">
+          <map name="rules">
+          </map>
+        </newObject>
+      </newObject>
+    </map>
+    <map name="write-processors">
+      <newObject name="PageWriter" class="org.archive.crawler.writer.PageWriterProcessor">
+        <boolean name="enabled">true</boolean>
+        <newObject name="PageWriter#decide-rules" class="org.archive.crawler.deciderules.DecideRuleSequence">
+          <map name="rules">
+          </map>
+        </newObject>
+        <string name="path">mirror</string>
+        <string name="default-suffix">html</string>
+      </newObject>
+    </map>
+    <map name="post-processors">
+      <newObject name="Updater" class="org.archive.crawler.postprocessor.CrawlStateUpdater">
+        <boolean name="enabled">true</boolean>
+        <newObject name="Updater#decide-rules" class="org.archive.crawler.deciderules.DecideRuleSequence">
+          <map name="rules">
+          </map>
+        </newObject>
+      </newObject>
+      <newObject name="LinksScoper" class="org.archive.crawler.postprocessor.LinksScoper">
+        <boolean name="enabled">true</boolean>
+        <newObject name="LinksScoper#decide-rules" class="org.archive.crawler.deciderules.DecideRuleSequence">
+          <map name="rules">
+          </map>
+        </newObject>
+        <boolean name="override-logger">false</boolean>
+        <boolean name="seed-redirects-new-seed">true</boolean>
+        <integer name="preference-depth-hops">-1</integer>
+        <newObject name="scope-rejected-url-rules" class="org.archive.crawler.deciderules.DecideRuleSequence">
+          <map name="rules">
+          </map>
+        </newObject>
+      </newObject>
+      <newObject name="CollectURL" class="org.archive.crawler.postprocessor.CollectURL">
+        <boolean name="enabled">true</boolean>
+        <newObject name="CollectURL#decide-rules" class="org.archive.crawler.deciderules.DecideRuleSequence">
+          <map name="rules">
+          </map>
+        </newObject>
+      </newObject>
+    </map>
+    <map name="loggers">
+      <newObject name="crawl-statistics" class="org.archive.crawler.admin.StatisticsTracker">
+        <integer name="interval-seconds">20</integer>
+      </newObject>
+    </map>
+    <string name="recover-path"/>
+    <boolean name="checkpoint-copy-bdbje-logs">true</boolean>
+    <boolean name="recover-retain-failures">false</boolean>
+    <boolean name="recover-scope-includes">true</boolean>
+    <boolean name="recover-scope-enqueues">true</boolean>
+    <newObject name="credential-store" class="org.archive.crawler.datamodel.CredentialStore">
+      <map name="credentials">
+      </map>
+    </newObject>
+  </controller>
+</crawl-order>

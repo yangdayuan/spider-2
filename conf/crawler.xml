@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crawler>
+	<server-ip>127.0.0.1</server-ip>
+	<server-port>2500</server-port>
+	<trig-request-url-limit>100</trig-request-url-limit>
+	<trig-request-url-time>600000</trig-request-url-time>
+	<request-url-time>30000</request-url-time>  <!--如果从manager获取url失败，间隔多少时间尝试再获取，以毫秒为单位-->
+	<data-path>./data/job/dataFile/</data-path>
+	<mirror-path>./data/job/mirror/</mirror-path>
+	<order-path>./conf/order.xml</order-path>
+</crawler>
+
